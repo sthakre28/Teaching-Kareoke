@@ -5,17 +5,13 @@
   </div>
 
   <div class="text-center">
-    <div *ngIf="videoEnd">
-    <video width="800" height="320" autoplay="autoplay" controls="controls" id="videoId" (ended)="onVideoEnded()">
-      <source src="assets/Twinkle Twinkle Video with BGM only.mp4" type="video/mp4">
-    </video>
-    </div>
-  <div *ngIf="!videoEnd">
     <video width="800" height="320" autoplay="autoplay" controls="controls" id="videoId" (ended)="onVideoEnded()">
       <source src="assets/Twinkle Twinkle Little Star - Nursery Rhymes with lyrics.mp4" type="video/mp4">
     </video>
   </div>
-  </div>
+  <audio autoplay id="myaudio">
+    <source src="assets/Twinkle Twinkle Little Star - Nursery Rhymes with lyrics-Vocals.mp3">
+  </audio>
 </div>
 
 <!-- <router-outlet></router-outlet> -->

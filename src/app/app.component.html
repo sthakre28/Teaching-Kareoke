@@ -11,7 +11,7 @@
     </video>
     </div>
   <div *ngIf="!videoEnd">
-    <video width="800" height="320" autoplay="autoplay" controls="controls" #videoId (ended)="onVideoEnded()">
+    <video width="800" height="320" autoplay="autoplay" controls="controls" id="videoId" (ended)="onVideoEnded()">
       <source src="assets/Twinkle Twinkle Little Star - Nursery Rhymes with lyrics.mp4" type="video/mp4">
     </video>
   </div>
@@ -25,12 +25,11 @@
   <button class="btn btn-success" style="margin: 10px;" (click)="startService()">Start</button>
   <button class="btn btn-warning" style="margin: 10px;" (click)="stopService()">Stop</button>
 
-    <!-- <button class="btn btn-primary" style="margin: 10px;" >Stop Video</button> -->
+  <button class="btn btn-primary" style="margin: 10px;" (click)="setHalfVolume()" >Reduce to 50%</button>
 
   <div *ngIf="voiceRecognition == true">
     <p>{{service.text}}</p>
-  </div>
- 
+  </div> 
 </div>
 
 

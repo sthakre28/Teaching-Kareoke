@@ -16,7 +16,6 @@ export class WebsocketService {
 
   public connect(): void {
     if (!this.socket$ || this.socket$.closed) {
-      console.log(environment.webSocketUrl)
       this.socket$ = webSocket(environment.webSocketUrl);
 
       this.socket$.subscribe((data: MessageData) => {

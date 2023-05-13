@@ -15,11 +15,11 @@ export class AppComponent {
   videoEnd : boolean = false;
   message = '';
   sample = "twinkle twinkle little star"
-  subject = webSocket("wss://automation-api.devinfinitylearn.in/weight");
+  subject = webSocket("wss://automation-api.devinfinitylearn.in/weight/");
 
 
   constructor( public service : VoiceRecognitionService , public websocket : WebsocketService){
-    this.service.init();
+    this.service.init();  
     this.websocket.connect();
   }
 
@@ -34,15 +34,17 @@ export class AppComponent {
   }
 
   sendMessage(message: string) {
+    console.log(this.service.text)
     this.websocket.sendMessage(message);
   }
 
   startService(){
     this.voiceRecognition = true;
-    this.service.start()
+    this.service.start();
   }
 
   stopService(){
+    console.log(this.service.text);
     this.voiceRecognition = false;
     this.service.stop()
   }
@@ -51,6 +53,16 @@ export class AppComponent {
     alert('Video is ended')
     this.videoEnd = true;
   }
+
+  // Controlling Volumes
+  setHalfVolume() { 
+    //@ts-ignore
+    document.getElementById("videoId").volume = 0.2;
+  } 
+    
+  // setFullVolume() { 
+  //   vid.volume = 1.0;
+  // } 
 
   ngOnDestroy() {
     this.websocket.close();

@@ -7,12 +7,12 @@
   <div class="text-center">
     <div *ngIf="videoEnd">
     <video width="800" height="320" autoplay="autoplay" controls="controls" id="videoId" (ended)="onVideoEnded()">
-      <source src="assets/Rain, Rain, Go Away - Free Karaoke Nursery Rhymes with Lyrics.mp4" type="video/mp4">
+      <source src="assets/Twinkle Twinkle Video with BGM only.mp4" type="video/mp4">
     </video>
     </div>
   <div *ngIf="!videoEnd">
-    <video width="800" height="320" autoplay="autoplay" controls="controls" id="videoId" (ended)="onVideoEnded()">
-      <source src="assets/Rain Rain Go Away - CoComelon Nursery Rhymes & Kids Songs.mp4" type="video/mp4">
+    <video width="800" height="320" autoplay="autoplay" controls="controls" #videoId (ended)="onVideoEnded()">
+      <source src="assets/Twinkle Twinkle Little Star - Nursery Rhymes with lyrics.mp4" type="video/mp4">
     </video>
   </div>
   </div>
@@ -24,9 +24,33 @@
   <h1>Voice recognition</h1>
   <button class="btn btn-success" style="margin: 10px;" (click)="startService()">Start</button>
   <button class="btn btn-warning" style="margin: 10px;" (click)="stopService()">Stop</button>
-  
+
+    <!-- <button class="btn btn-primary" style="margin: 10px;" >Stop Video</button> -->
+
   <div *ngIf="voiceRecognition == true">
     <p>{{service.text}}</p>
   </div>
  
 </div>
+
+
+<!-- Web Socket Direct -->
+<input type="text" [(ngModel)]="sample" (change)="sendToServer($event)">
+<!-- Testing Socket Connection  -->
+
+
+<div class="text-center">
+<h2>Send a message to the server:</h2>
+<form (ngSubmit)="sendMessage(message); message = ''">
+  <input [(ngModel)]="message" name="message" type="text" autocomplete="off" />
+  <button type="submit" style="margin-left: 10px;">Send</button>
+</form>
+
+<h2>Received messages from the server:</h2>
+<ul>
+  <li *ngFor="let data of websocket.receivedData">
+    {{ data.time }}: {{ data.message }}
+  </li>
+</ul>
+</div>
+

@@ -3,7 +3,7 @@ import { VoiceRecognitionService } from './service/voice-recognition.service';
 import { WebsocketService } from './websocket.service';
 import {webSocket} from 'rxjs/webSocket';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subject, takeUntil,Subscription } from 'rxjs';
+import { interval, Subscription  } from 'rxjs';
 
 
 @Component({
@@ -19,8 +19,10 @@ export class AppComponent {
   message = '';
   sample = "twinkle twinkle little star"
   subject = webSocket("wss://automation-api.devinfinitylearn.in/weight/");
+  propertyToSend: any;
+  subscription !: Subscription;
 
-
+  
   constructor( public service : VoiceRecognitionService , public websocket : WebsocketService, private cdr : ChangeDetectorRef){
     this.service.init();  
     this.websocket.connect();
@@ -31,7 +33,8 @@ export class AppComponent {
    }
 
   ngOnInit(): void {
-    
+
+  this.startTimer();
   this.websocket.realTime.subscribe((data: any) => {
     console.log(data.event);
     if(data.event == 'volumne_up'){
@@ -43,6 +46,7 @@ export class AppComponent {
     document.getElementById("myaudio").volume = 0;
     }
   });
+
 
   }
   
@@ -64,7 +68,7 @@ export class AppComponent {
     }, 100)
     
     this.service.start();
-    this.setHalfVolume();
+    // this.setHalfVolume();
   }
 
   stopService(){
@@ -81,9 +85,12 @@ export class AppComponent {
 
   // Controlling Volumes
   setHalfVolume() { 
+
     //@ts-ignore
     document.getElementById("newVideo").volume = 0.2;
+   
   }
+
 
   reduceAudio(){
     //@ts-ignore
@@ -91,8 +98,28 @@ export class AppComponent {
   }
 
 
+startTimer(): void {
+    this.subscription = interval(1000).subscribe(() => {
+    if(this.voiceRecognition == true){
+      //@ts-ignore
+      let curTime = document.getElementById('newVideo').currentTime;
+      this.propertyToSend = curTime;
+      this.service.processProperty(this.propertyToSend);
+      console.log(this.propertyToSend);;
+    }
+      
+    });
+  }
+
+  stopTimer(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   ngOnDestroy() {
     this.websocket.close();
+    this.stopTimer();
   }
 
 }

@@ -5,7 +5,7 @@ import {environment } from '../environments/environment';
 import {Observable, Subject} from 'rxjs';
 
 interface MessageData {
-  message: string;
+  message: any;
   time?: string;
 }
 
@@ -33,7 +33,8 @@ export class WebsocketService {
     }
   }
 
-  sendMessage(message: string) {
+  sendMessage(message: any) {
+    console.log(message);
     this.socket$.next({ message });
   }
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { WebsocketService } from '../websocket.service';
 
 declare var webkitSpeechRecognition: any;
 
@@ -12,7 +13,7 @@ export class VoiceRecognitionService {
   public text = '';
   tempWords: any;
 
-  constructor() { }
+  constructor(public websocket: WebsocketService) { }
 
   init() {
 
@@ -25,6 +26,7 @@ export class VoiceRecognitionService {
         .map((result:any) => result.transcript)
         .join('');
       this.tempWords = transcript;
+      this.websocket.sendMessage(this.tempWords);
       console.log(transcript);
     });
   }
@@ -43,6 +45,7 @@ export class VoiceRecognitionService {
       }
     });
   }
+
   stop() {
     this.isStoppedSpeechRecog = true;
     this.wordConcat()
@@ -53,5 +56,6 @@ export class VoiceRecognitionService {
   wordConcat() {
     this.text = this.text + ' ' + this.tempWords + '.';
     this.tempWords = '';
+    console.log(this.text);
   }
 }

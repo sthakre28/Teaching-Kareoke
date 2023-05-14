@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import {environment } from '../environments/environment';
 
+import {Observable, Subject} from 'rxjs';
+
 interface MessageData {
   message: string;
   time?: string;
@@ -13,6 +15,11 @@ interface MessageData {
 export class WebsocketService {
   private socket$!: WebSocketSubject<any>;
   public receivedData: MessageData[] = [];
+  realTime = new Subject();
+
+  constructor() {
+    
+  }
 
   public connect(): void {
     if (!this.socket$ || this.socket$.closed) {
@@ -21,6 +28,7 @@ export class WebsocketService {
       this.socket$.subscribe((data: MessageData) => {
         console.log(data);
         this.receivedData.push(data);
+        this.realTime.next(data);
       });
     }
   }
@@ -33,5 +41,4 @@ export class WebsocketService {
     this.socket$.complete();
   }
 
-  constructor() { }
 }

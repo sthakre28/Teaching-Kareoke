@@ -1,51 +1,76 @@
 
+<!-- <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css2?family=Courgette&family=Schoolbell&display=swap" rel="stylesheet">
+<!-- Video -->
+<div class="main-page">
 <div class="mx-auto">
   <div class="text-center">T
-    <h1 style="font-family:sans-serif;">Learning Karaoke</h1>
+    <h1 class="mint">Learning Karaoke</h1>
   </div>
 
-  <div class="text-center">
-    <video width="800" height="320" autoplay="autoplay" controls="controls" id="videoId" (ended)="onVideoEnded()">
+  <div class="text-center" *ngIf="!voiceRecognition" >
+    <video width="800" height="400" autoplay="autoplay" controls="controls" id="videoId" (ended)="onVideoEnded()" style="border: 10px solid snow;">
       <source src="assets/Twinkle Twinkle Little Star - Nursery Rhymes with lyrics.mp4" type="video/mp4">
     </video>
   </div>
-  <audio autoplay id="myaudio">
-    <source src="assets/Twinkle Twinkle Little Star - Nursery Rhymes with lyrics-Vocals.mp3">
-  </audio>
+  <div class="text-center" *ngIf="voiceRecognition">
+    <video width="800" height="400" autoplay="autoplay" controls="controls" id="newVideo" (ended)="onVideoEnded()" style="border: 10px solid snow;">
+      <source src="assets/Twinkle Twinkle Video with BGM only.mp4" type="video/mp4">
+    </video>
+    <audio autoplay id="myaudio">
+      <source src="assets/Twinkle Twinkle Little Star - Nursery Rhymes with lyrics-Vocals.mp3">
+    </audio>
+  </div>
 </div>
 
-<!-- <router-outlet></router-outlet> -->
-
-<div style="margin: 100px;">
-  <h1>Voice recognition</h1>
-  <button class="btn btn-success" style="margin: 10px;" (click)="startService()">Start</button>
-  <button class="btn btn-warning" style="margin: 10px;" (click)="stopService()">Stop</button>
-
-  <button class="btn btn-primary" style="margin: 10px;" (click)="setHalfVolume()" >Reduce to 50%</button>
-
-  <div *ngIf="voiceRecognition == true">
-    <p>{{service.text}}</p>
-  </div> 
+<div class="row">
+<!-- Instructions -->
+<div class="col-6">
+  <div style="margin-top: 5%;
+  margin-left: 20%;" *ngIf="videoEnd">
+    <ul>
+      <h3>Instructions:</h3>
+      <li>Turn the mic on.</li>
+      <li>Please make sure there is no background noise.</li>
+    </ul>
+    <button class="btn btn-success" style="margin: 10px;" (click)="startService()">Start singing</button>
+    <button class="btn btn-warning" style="margin: 10px;" (click)="stopService()">Stop</button>
+  
+    <button class="btn btn-primary" style="margin: 10px;" (click)="setHalfVolume()" >Reduce to 50%</button>
+  
+    <button class="btn btn-secondary" style="margin: 10px;" (click)="reduceAudio()">Mute Audio</button>
+    <div *ngIf="voiceRecognition == true">
+      <p>{{service.text}}</p>
+    </div> 
+  </div>
 </div>
 
 
 <!-- Web Socket Direct -->
-<input type="text" [(ngModel)]="sample" (change)="sendToServer($event)">
+<!-- <input type="text" [(ngModel)]="sample" (change)="sendToServer($event)"> -->
 <!-- Testing Socket Connection  -->
 
 
-<div class="text-center">
-<h2>Send a message to the server:</h2>
+<!-- Testing Connection -->
+
+<!-- <h2>Send a message to the server:</h2>
 <form (ngSubmit)="sendMessage(message); message = ''">
   <input [(ngModel)]="message" name="message" type="text" autocomplete="off" />
   <button type="submit" style="margin-left: 10px;">Send</button>
-</form>
+</form> -->
 
-<h2>Received messages from the server:</h2>
-<ul>
-  <li *ngFor="let data of websocket.receivedData">
-    {{ data.time }}: {{ data.message }}
-  </li>
-</ul>
+
+<div class="col-6">
+  <div style="margin-top:10%; margin-right: 5%;" class="text-center">
+    <div class="mint">
+      <p style="font-size: 24px; font-weight:900;"  >{{this.service.tempWords}}</p>
+    </div>
+      <!-- <div *ngFor="let data of websocket.receivedData">
+      <p>{{data|json}}</p>
+      </div> -->
+    </div>
+    </div>
 </div>
+</div>
+
 

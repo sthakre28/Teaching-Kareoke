@@ -37,7 +37,7 @@ export class AppComponent {
   this.startTimer();
   this.websocket.realTime.subscribe((data: any) => {
     console.log(data.event);
-    if(data.event == 'volumne_up'){
+    if(data.event == 'volume_up'){
       //@ts-ignore
     document.getElementById("myaudio").volume = 1;
     }
@@ -46,7 +46,6 @@ export class AppComponent {
     document.getElementById("myaudio").volume = 0;
     }
   });
-
 
   }
   
@@ -78,9 +77,16 @@ export class AppComponent {
   }
 
   onVideoEnded(){
-    alert('Video is ended')
+    alert('Video ends,lets sing')
     this.videoEnd = true;
-    console.log(this.websocket.receivedData)
+    console.log(this.websocket.receivedData);
+    
+  }
+
+  newVideoEnded(){
+    alert('Check Results');
+    let videoEnded = true;
+    this.websocket.sendMessage(videoEnded);
   }
 
   // Controlling Volumes
@@ -99,7 +105,7 @@ export class AppComponent {
 
 
 startTimer(): void {
-    this.subscription = interval(1000).subscribe(() => {
+    this.subscription = interval(500).subscribe(() => {
     if(this.voiceRecognition == true){
       //@ts-ignore
       let curTime = document.getElementById('newVideo').currentTime;

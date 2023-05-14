@@ -6,7 +6,6 @@ import {Observable, Subject} from 'rxjs';
 
 interface MessageData {
   message: any;
-  time?: string;
 }
 
 @Injectable({
@@ -25,7 +24,7 @@ export class WebsocketService {
     if (!this.socket$ || this.socket$.closed) {
       this.socket$ = webSocket(environment.webSocketUrl);
 
-      this.socket$.subscribe((data: MessageData) => {
+      this.socket$.subscribe((data:any) => {
         console.log(data);
         this.receivedData.push(data);
         this.realTime.next(data);
@@ -35,7 +34,7 @@ export class WebsocketService {
 
   sendMessage(message: any) {
     console.log(message);
-    this.socket$.next({ message });
+    this.socket$.next(message);
   }
 
   close() {

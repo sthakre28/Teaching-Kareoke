@@ -14,7 +14,7 @@
     </video>
   </div>
   <div class="text-center" *ngIf="voiceRecognition">
-    <video width="800" height="400" autoplay="autoplay" controls="controls" id="newVideo" (ended)="onVideoEnded()" style="border: 10px solid snow;">
+    <video width="800" height="400" autoplay="autoplay" controls="controls" id="newVideo" (ended)="newVideoEnded()" style="border: 10px solid snow;">
       <source src="assets/Twinkle Twinkle Video with BGM only.mp4" type="video/mp4">
     </video>
     <audio autoplay id="myaudio">
@@ -36,12 +36,12 @@
     <button class="btn btn-success" style="margin: 10px;" (click)="startService()">Start singing</button>
     <button class="btn btn-warning" style="margin: 10px;" (click)="stopService()">Stop</button>
   
-    <button class="btn btn-primary" style="margin: 10px;" (click)="setHalfVolume()" >Reduce to 50%</button>
+    <!-- <button class="btn btn-primary" style="margin: 10px;" (click)="setHalfVolume()" >Reduce to 50%</button> -->
   
-    <button class="btn btn-secondary" style="margin: 10px;" (click)="reduceAudio()">Mute Audio</button>
-    <div *ngIf="voiceRecognition == true">
+    <!-- <button class="btn btn-secondary" style="margin: 10px;" (click)="reduceAudio()">Mute Audio</button> -->
+    <!-- <div *ngIf="voiceRecognition == true">
       <p>{{service.text}}</p>
-    </div> 
+    </div>  -->
   </div>
 </div>
 

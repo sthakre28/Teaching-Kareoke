@@ -8,7 +8,6 @@ import {VgControlsModule} from '@videogular/ngx-videogular/controls'
 import {VgOverlayPlayModule} from '@videogular/ngx-videogular/overlay-play'
 import {VgBufferingModule} from '@videogular/ngx-videogular/buffering'
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
-
 @NgModule({
   declarations: [
     AppComponent
@@ -21,7 +20,7 @@ import { FormsModule , ReactiveFormsModule} from '@angular/forms';
     VgControlsModule,
     VgCoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

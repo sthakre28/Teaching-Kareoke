@@ -4,7 +4,7 @@
 <!-- Video -->
 <div class="main-page">
 <div class="mx-auto">
-  <div class="text-center">T
+  <div class="text-center">
     <h1 class="mint">Learning Karaoke</h1>
   </div>
 
@@ -35,7 +35,7 @@
     </ul>
     <button class="btn btn-success" style="margin: 10px;" (click)="startService()">Start singing</button>
     <button class="btn btn-warning" style="margin: 10px;" (click)="stopService()">Stop</button>
-  
+
     <!-- <button class="btn btn-primary" style="margin: 10px;" (click)="setHalfVolume()" >Reduce to 50%</button> -->
   
     <!-- <button class="btn btn-secondary" style="margin: 10px;" (click)="reduceAudio()">Mute Audio</button> -->
@@ -43,6 +43,13 @@
       <p>{{service.text}}</p>
     </div>  -->
   </div>
+</div>
+
+<div class="text-center" style="margin-top: 2%;" *ngIf="!videoEnd">
+  <h1 class="mint">Levels</h1>
+  <button  class="btn btn-success mr-10">EASY</button>&nbsp;
+  <button class="btn btn-warning mr-10">MEDIUM</button>&nbsp;
+  <button class="btn btn-danger mr-10">HARD</button>
 </div>
 
 
@@ -63,7 +70,7 @@
 <div class="col-6">
   <div style="margin-top:10%; margin-right: 5%;" class="text-center">
     <div class="mint">
-      <p style="font-size: 24px; font-weight:900;"  >{{this.service.tempWords}}</p>
+      <p style="font-size: 24px; font-weight:900;"  >{{service.tempWords}}</p>
     </div>
       <!-- <div *ngFor="let data of websocket.receivedData">
       <p>{{data|json}}</p>
@@ -72,5 +79,7 @@
     </div>
 </div>
 </div>
+
+
 
 
